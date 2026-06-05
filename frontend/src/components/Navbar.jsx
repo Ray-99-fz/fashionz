@@ -7,14 +7,14 @@ const Navbar = () => {
   const [nav, setNav] = useState(false);
 
   const navLinks = [
-    { name: "SEE ALL", path: "/shop" },
-    { name: "MENS", path: "/mens" },
-    { name: "WOMENS", path: "/womens" },
-    { name: "ACCESSORIES", path: "/accessories" },
+    { name: "SEE ALL", path: "/products/shop" },
+    { name: "MENS", path: "/products/mens" },
+    { name: "WOMENS", path: "/products/womens" },
+    { name: "ACCESSORIES", path: "/products/accessories" },
   ];
 
   return (
-    <header className="w-screen sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+    <header className="w-screen sticky top-0 z-50 bg-white/30 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-[1180px] mx-auto px-5">
         <nav className="h-20 flex items-center justify-between">
           {/* Logo */}

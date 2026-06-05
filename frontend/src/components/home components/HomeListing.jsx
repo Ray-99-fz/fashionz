@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { products } from "../../data/products";
 
 const HomeListing = () => {
@@ -99,9 +100,9 @@ const HomeListing = () => {
 
         {/* Bottom CTA */}
         <div className="flex justify-center mt-20">
-          <button className="bg-black text-white px-10 py-5 rounded-2xl font-semibold tracking-wide hover:bg-gray-900 transition-all duration-300 shadow-xl">
+          <Link to="/products/shop" className="bg-black text-white px-10 py-5 rounded-2xl font-semibold tracking-wide hover:bg-gray-900 transition-all duration-300 shadow-xl">
             Explore Full Collection
-          </button>
+          </Link>
         </div>
       </div>
     </section>
