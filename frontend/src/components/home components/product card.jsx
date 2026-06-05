@@ -1,6 +1,6 @@
 
 
-const ProductCard = ({id, image, name, category,reviews, price,oldPrice})=>{
+const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewed, onView})=>{
          return(
             <div
               className="group cursor-pointer"
@@ -26,7 +26,7 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice})=>{
 
                 {/* Quick View Button */}
                 <div className="absolute bottom-5 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <button onClick={()=>console.log(id)} className="bg-white text-black px-6 py-3 rounded-xl font-medium shadow-xl hover:bg-black hover:text-white transition-all duration-300">
+                  <button onClick={()=>onView(id)} className="bg-white text-black px-6 py-3 rounded-xl font-medium shadow-xl hover:bg-black hover:text-white transition-all duration-300">
                      Quick View
                   </button>
                 </div>

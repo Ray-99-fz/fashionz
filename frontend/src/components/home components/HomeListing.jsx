@@ -2,11 +2,21 @@ import { Link } from "react-router-dom";
 import { products } from "../../data/products";
 import ProductDetails from "./product details";
 import ProductCard from "./product card";
+import { useState } from "react";
 const HomeListing = () => {
   // Get featured/top-rated products
   const featuredProducts = products
     .filter((product) => product.featured)
     .slice(0, 6);
+
+  // VIEW PRODUCT DETAILS
+  const [isviewed, setIsViewed] = useState(null);
+  const handleViewDetails = (id)=>{
+        setIsViewed(id); 
+        console.log(selectedProduct)
+        }
+  // GET CLICKED PRODUCT
+  const selectedProduct = products.filter((product)=> product.id===isviewed)
 
   return (
     <section className="py-24 bg-white">
@@ -33,9 +43,24 @@ const HomeListing = () => {
                <ProductCard 
                  key={product.id}
                  {...product}
+                 isViewed={isviewed}
+                 onView={handleViewDetails}
                />
           ))}
         </div>
+        {/*PRODUCT DETAILS */}
+        {
+          selectedProduct.map((product)=>
+            <ProductDetails 
+               key={product.id}
+               {...product}
+               isViewed={isviewed}
+               onView={handleViewDetails}
+               
+             />   
+          )
+        }
+        {/*<ProductDetails isViewed={isviewed} id={1} onView={handleViewDetails}/>*/}
 
         {/* Bottom CTA */}
         <div className="flex justify-center mt-20">
