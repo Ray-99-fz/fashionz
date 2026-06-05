@@ -29,7 +29,7 @@ export const products = [
     price: 55,
     oldPrice: 75,
     image:
-      "https://images.unsplash.com/photo-1506629905607-d405b7a3b5e0?q=80&w=1200&auto=format&fit=crop",
+      "https://i.pinimg.com/736x/99/01/83/990183c802d4dc202d33c63df7e3a3ac.jpg",
     rating: 4.6,
     reviews: 88,
     stock: 12,
