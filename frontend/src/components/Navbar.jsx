@@ -9,10 +9,10 @@ const Navbar = () => {
         setNav(!nav)
         }
   const navLinks = [
-    { name: "SEE ALL", path: "/shop" },
-    { name: "MENS", path: "/mens" },
-    { name: "WOMENS", path: "/womens" },
-    { name: "ACCESSORIES", path: "/accessories" },
+    { name: "SEE ALL", path: "/products/shop" },
+    { name: "MENS", path: "/products/mens" },
+    { name: "WOMENS", path: "/products/womens" },
+    { name: "ACCESSORIES", path: "/products/accessories" },
   ];
 
   return (

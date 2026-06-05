@@ -5,10 +5,7 @@ import {
 } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/Landing";
-import Products from "./layouts/ProductsLayout";
-import Mens from "./pages/products/Mens";
-import Womens from "./pages/products/Womens";
-import Accessories from "./pages/products/Accessories";
+import Products from "./pages/Products";
 
 
 const router = createBrowserRouter(
@@ -17,7 +14,8 @@ const router = createBrowserRouter(
             path: "/",
             Component: AppLayout,
             children: [
-                {index: true, Component: Landing}
+                {index: true, Component: Landing},
+                {path: "/products/:slug", Component: Products}
             ]
         }
     ]
