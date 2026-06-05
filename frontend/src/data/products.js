@@ -15,7 +15,23 @@ export const products = [
     reviews: 124,
     stock: 18,
     featured: true,
-    colors: ["White", "Black", "Beige"],
+    colors: [
+             { 
+              id:1,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:3,
+               name:"Beige", 
+               bgColor:'bg-stone-500'
+            }
+          ],
     sizes: ["S", "M", "L", "XL"],
     description:
       "Premium breathable linen shirt designed for modern everyday wear.",
@@ -34,7 +50,18 @@ export const products = [
     reviews: 88,
     stock: 12,
     featured: false,
-    colors: ["Olive", "Black"],
+    colors: [
+             { 
+              id:1,
+              name:"Olive", 
+              bgColor:'bg-white'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            },  
+          ],
     sizes: ["30", "32", "34", "36"],
     description:
       "Relaxed tailored cargo pants combining utility and luxury streetwear.",
@@ -53,7 +80,13 @@ export const products = [
     reviews: 203,
     stock: 10,
     featured: true,
-    colors: ["Blue"],
+    colors: [
+             { 
+              id:1,
+              name:"Blue", 
+              bgColor:'bg-blue-600'
+            }, 
+          ],
     sizes: ["M", "L", "XL"],
     description:
       "A timeless denim jacket crafted with durable premium cotton.",
@@ -72,7 +105,18 @@ export const products = [
     reviews: 150,
     stock: 25,
     featured: false,
-    colors: ["Gray", "Black"],
+    colors: [
+             { 
+              id:1,
+              name:"Gray", 
+              bgColor:'bg-gray-500'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Heavyweight premium hoodie with minimalist branding.",
@@ -91,7 +135,18 @@ export const products = [
     reviews: 67,
     stock: 20,
     featured: false,
-    colors: ["Black", "Charcoal"],
+    colors: [ 
+            {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:2,
+               name:"Charcoal", 
+               bgColor:'bg-gray-900'
+            }
+          ],
     sizes: ["30", "32", "34"],
     description:
       "Versatile smart-casual trousers for office and lifestyle wear.",
@@ -110,7 +165,18 @@ export const products = [
     reviews: 112,
     stock: 14,
     featured: true,
-    colors: ["Cream", "Brown"],
+    colors: [
+             { 
+              id:1,
+              name:"Cream", 
+              bgColor:'bg-yellow-100'
+            }, 
+            {
+              id:2,
+              name:"Brown", 
+              bgColor:'bg-amber-900'
+            }, 
+          ],
     sizes: ["M", "L", "XL"],
     description:
       "Soft textured knit sweater with premium comfort fit.",
@@ -129,7 +195,18 @@ export const products = [
     reviews: 175,
     stock: 9,
     featured: true,
-    colors: ["Black", "Navy"],
+    colors: [
+            {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:2,
+               name:"Navy", 
+               bgColor:'bg-blue-800'
+            }
+          ],
     sizes: ["M", "L"],
     description:
       "Contemporary bomber jacket inspired by luxury street fashion.",
@@ -148,7 +225,18 @@ export const products = [
     reviews: 95,
     stock: 40,
     featured: false,
-    colors: ["White", "Black"],
+    colors: [
+             { 
+              id:1,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+          ],
     sizes: ["S", "M", "L", "XL"],
     description:
       "Soft cotton t-shirt with subtle contemporary graphic print.",
@@ -167,7 +255,18 @@ export const products = [
     reviews: 104,
     stock: 22,
     featured: false,
-    colors: ["Navy", "White"],
+    colors: [
+             { 
+              id:1,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+            {
+              id:2,
+              name:"Navy", 
+              bgColor:'bg-blue-900'
+            }, 
+          ],
     sizes: ["M", "L", "XL"],
     description:
       "Modern slim-fit polo shirt for elevated everyday dressing.",
@@ -186,7 +285,18 @@ export const products = [
     reviews: 54,
     stock: 30,
     featured: false,
-    colors: ["Khaki", "Black"],
+    colors: [
+             { 
+              id:1,
+              name:"Khaki", 
+              bgColor:'bg-orange-200'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Comfort-focused relaxed shorts with premium tailoring finish.",
@@ -209,7 +319,18 @@ export const products = [
     reviews: 214,
     stock: 8,
     featured: true,
-    colors: ["Champagne", "Black"],
+    colors: [
+             { 
+              id:1,
+              name:"champagne", 
+              bgColor:'bg-red-950'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Flowing satin dress crafted for sophisticated evening occasions.",
@@ -228,7 +349,18 @@ export const products = [
     reviews: 133,
     stock: 7,
     featured: true,
-    colors: ["Beige", "White"],
+    colors: [
+             { 
+              id:1,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+            {
+              id:2,
+              name:"Biege", 
+              bgColor:'bg-gray-800'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Modern power-dressing blazer set with tailored silhouette.",
@@ -247,7 +379,18 @@ export const products = [
     reviews: 96,
     stock: 15,
     featured: false,
-    colors: ["Cream", "Gray"],
+    colors: [
+             { 
+              id:1,
+              name:"Cream", 
+              bgColor:'bg-zinc-100'
+            }, 
+            {
+              id:2,
+              name:"Gray", 
+              bgColor:'bg-gray-500'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Soft oversized cardigan designed for comfort and elegance.",
@@ -266,7 +409,18 @@ export const products = [
     reviews: 85,
     stock: 18,
     featured: false,
-    colors: ["Black", "Camel"],
+       colors: [
+            {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:2,
+               name:"Camel", 
+               bgColor:'bg-red-950'
+            }
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Elegant high-waisted trousers with relaxed luxury silhouette.",
@@ -285,7 +439,13 @@ export const products = [
     reviews: 124,
     stock: 20,
     featured: true,
-    colors: ["White"],
+       colors: [
+             { 
+              id:1,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+          ],
     sizes: ["S", "M", "L", "XL"],
     description:
       "Timeless white blouse for smart casual and office styling.",
@@ -304,7 +464,18 @@ export const products = [
     reviews: 102,
     stock: 16,
     featured: false,
-    colors: ["Black", "Brown"],
+       colors: [
+            {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:2,
+               name:"Brown", 
+               bgColor:'bg-gray-700'
+            }
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Stretch-fit bodycon dress with elevated modern styling.",
@@ -323,7 +494,13 @@ export const products = [
     reviews: 187,
     stock: 10,
     featured: true,
-    colors: ["Blue"],
+    colors: [
+            {
+              id:2,
+              name:"Blue", 
+              bgColor:'bg-blue-600'
+            }, 
+          ],
     sizes: ["M", "L"],
     description:
       "Vintage-inspired oversized denim jacket with premium wash.",
@@ -342,7 +519,18 @@ export const products = [
     reviews: 111,
     stock: 14,
     featured: false,
-    colors: ["Stone", "Gray"],
+    colors: [
+             { 
+              id:1,
+              name:"Stone", 
+              bgColor:'bg-stone-500'
+            }, 
+            {
+              id:2,
+              name:"Bray", 
+              bgColor:'bg-gray-500'
+            }, 
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Premium lounge set combining comfort and modern aesthetics.",
@@ -361,7 +549,18 @@ export const products = [
     reviews: 79,
     stock: 19,
     featured: false,
-    colors: ["Black", "Cream"],
+    colors: [
+            {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+            { 
+               id:2,
+               name:"Cream", 
+               bgColor:'bg-red-50'
+            }
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Elegant pleated midi skirt with fluid movement and structure.",
@@ -380,7 +579,19 @@ export const products = [
     reviews: 120,
     stock: 11,
     featured: true,
-    colors: ["Black", "White"],
+    colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             { 
+              id:2,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+             
+          ],
     sizes: ["S", "M", "L"],
     description:
       "Structured cropped jacket designed for elevated streetwear looks.",
@@ -403,7 +614,19 @@ export const products = [
     reviews: 230,
     stock: 9,
     featured: true,
-    colors: ["Black", "Brown"],
+    colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             { 
+              id:2,
+              name:"Brown", 
+              bgColor:'bg-amber-950'
+            }, 
+             
+          ],
     description:
       "Premium genuine leather tote designed for modern professionals.",
   },
@@ -421,7 +644,19 @@ export const products = [
     reviews: 180,
     stock: 14,
     featured: true,
-    colors: ["Silver", "Black"],
+     colors: [
+              { 
+              id:1,
+              name:"Silver", 
+              bgColor:'bg-zinc-400'
+            }, 
+             {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             
+          ],
     description:
       "Elegant stainless steel wrist watch with minimalist design.",
   },
@@ -439,7 +674,19 @@ export const products = [
     reviews: 88,
     stock: 20,
     featured: false,
-    colors: ["Black", "Olive"],
+    colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             { 
+              id:2,
+              name:"Olive", 
+              bgColor:'bg-pink-400'
+            }, 
+             
+          ],
     description:
       "Compact crossbody bag for everyday fashion and utility.",
   },
@@ -457,7 +704,14 @@ export const products = [
     reviews: 91,
     stock: 24,
     featured: false,
-    colors: ["Black"],
+     colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            }, 
+             
+          ],
     description:
       "UV-protected designer sunglasses with contemporary styling.",
   },
@@ -475,7 +729,20 @@ export const products = [
     reviews: 57,
     stock: 28,
     featured: false,
-    colors: ["Brown", "Black"],
+     colors: [
+              { 
+              id:1,
+              name:"Yellow", 
+              bgColor:'bg-yellow-00'
+             }, 
+             {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+           
+             
+          ],
     description:
       "Premium leather belt with polished metallic buckle.",
   },
@@ -493,7 +760,19 @@ export const products = [
     reviews: 43,
     stock: 40,
     featured: false,
-    colors: ["Gray", "Black"],
+    colors: [
+              { 
+              id:1,
+              name:"Gray", 
+              bgColor:'bg-gray-500'
+            }, 
+             {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             
+          ],
     description:
       "Soft ribbed beanie crafted for warmth and everyday styling.",
   },
@@ -511,7 +790,15 @@ export const products = [
     reviews: 130,
     stock: 12,
     featured: true,
-    colors: ["Black"],
+     colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+
+             
+          ],
     description:
       "Modern backpack with premium storage and clean aesthetics.",
   },
@@ -529,7 +816,13 @@ export const products = [
     reviews: 66,
     stock: 18,
     featured: false,
-    colors: ["Silver"],
+     colors: [
+             {
+              id:1,
+              name:"Silver", 
+              bgColor:'bg-zinc-500'
+            },    
+          ],
     description:
       "Statement necklace designed for elevated fashion layering.",
   },
@@ -547,7 +840,18 @@ export const products = [
     reviews: 85,
     stock: 26,
     featured: false,
-    colors: ["Brown", "Black"],
+    colors: [
+              { 
+              id:1,
+              name:"Brown", 
+              bgColor:'bg-amber-950'
+            }, 
+            {
+              id:2,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+          ],
     description:
       "Slim luxury wallet crafted from textured genuine leather.",
   },
@@ -565,7 +869,19 @@ export const products = [
     reviews: 50,
     stock: 35,
     featured: false,
-    colors: ["Black", "White"],
+    colors: [
+             {
+              id:1,
+              name:"Black", 
+              bgColor:'bg-black'
+            },
+             { 
+              id:2,
+              name:"White", 
+              bgColor:'bg-white'
+            }, 
+             
+          ],
     description:
       "Structured fashion cap with minimal embroidered detailing.",
   },

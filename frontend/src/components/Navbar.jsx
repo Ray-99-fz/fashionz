@@ -2,10 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { IoIosClose } from "react-icons/io";
-
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-
+  
+  const toggleNav = ()=>{
+        setNav(!nav)
+        }
   const navLinks = [
     { name: "SEE ALL", path: "/products/shop" },
     { name: "MENS", path: "/products/mens" },
@@ -14,7 +16,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="w-screen sticky top-0 z-50 bg-white/30 backdrop-blur-md border-b border-gray-200">
+    <header className="w-full fixed top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-[1180px] mx-auto px-5">
         <nav className="h-20 flex items-center justify-between">
           {/* Logo */}
@@ -60,8 +62,8 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setNav(true)}
-            className="md:hidden text-gray-800 hover:scale-105 duration-200"
+            onClick={toggleNav}
+            className="md:hidden text-red-800 hover:scale-105 duration-200"
           >
             <HiOutlineMenuAlt4 size={30} />
           </button>
@@ -69,17 +71,17 @@ const Navbar = () => {
       </div>
 
       {/* Overlay */}
+      {/*REMOVED ONCLICK HANDLER ON OVERLAY BECAUSE IT CONFLICTS WITH NATIVE REMOVE BUTTON ON MENU CONTAINER*/}
       <div
-        onClick={() => setNav(false)}
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          nav ? "opacity-100 visible" : "opacity-0 invisible"
+        className={`hidden fixed inset-0 z-50 h-screen bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          nav ? "opacity-0 invisible" : "opacity-100 visible"
         }`}
       />
 
       {/* Mobile Menu */}
       <aside
-        className={`fixed top-0 right-0 h-screen w-[320px] bg-white z-50 shadow-2xl transition-all duration-300 ease-in-out
-        ${nav ? "translate-x-0" : "translate-x-full"}`}
+        className={`md:hidden fixed right-0 h-screen w-full bg-white z-50 shadow-2xl transition-all duration-300 ease-in-out
+        ${nav ? "translate-x-full" : "translate-x-0"}`}
       >
         <div className="flex flex-col h-full p-6">
           {/* Top */}
@@ -98,7 +100,7 @@ const Navbar = () => {
             </div>
 
             <button
-              onClick={() => setNav(false)}
+              onClick={toggleNav}
               className="text-gray-700 hover:text-black duration-200"
             >
               <IoIosClose size={38} />
