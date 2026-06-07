@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useOrder } from "../../utils/OrderContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
-  const { order } = useOrder()
+  const { order, setOrder } = useOrder()
 
   console.log(order)
 
@@ -11,6 +11,7 @@ const CheckoutForm = () => {
     return <Navigate to='/' />
   }
   
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,16 +33,17 @@ const CheckoutForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setOrder({
+      ...order,
+      customer: formData
+    })
+
     console.log({
-      // order: {
-      //   product: "Premium Cotton Shirt",
-      //   color: "Black",
-      //   size: "L",
-      //   quantity: 2,
-      // },
       ...order,
       customer: formData,
     });
+
+    navigate('/receipt')
   };
 
   return (
