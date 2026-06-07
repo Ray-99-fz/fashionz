@@ -29,7 +29,9 @@ const ProductDetails = ({product}) =>{
            const { setOrder } = useOrder()
 
            const handleBuyNow = () => {
-            const totalPrice = productPrice * item.quantity
+            
+            const totalPrice = Number(productPrice.replace(/,/g, "")) * Number(item.quantity);
+
 
             setOrder({
                 id: product.id,
@@ -37,7 +39,7 @@ const ProductDetails = ({product}) =>{
                 size: item.size,
                 color: item.color,
                 quantity: item.quantity,
-                price: productPrice
+                price: totalPrice.toLocaleString()
             })
 
             navigate('/checkout')

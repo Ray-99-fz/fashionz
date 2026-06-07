@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useOrder } from "../../utils/OrderContext";
+import { Navigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const { order } = useOrder()
 
   console.log(order)
-  
 
-  const total = Number(order.price.replace(/,/g, "")) * Number(order.quantity);
-  console.log(total.toLocaleString())
+  if (!order) {
+    return <Navigate to='/' />
+  }
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,6 +19,8 @@ const CheckoutForm = () => {
     location: "",
     courier: "",
   });
+
+  console.log(formData)
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -29,12 +33,13 @@ const CheckoutForm = () => {
     e.preventDefault();
 
     console.log({
-      order: {
-        product: "Premium Cotton Shirt",
-        color: "Black",
-        size: "L",
-        quantity: 2,
-      },
+      // order: {
+      //   product: "Premium Cotton Shirt",
+      //   color: "Black",
+      //   size: "L",
+      //   quantity: 2,
+      // },
+      ...order,
       customer: formData,
     });
   };
@@ -79,7 +84,7 @@ const CheckoutForm = () => {
 
             <p className="text-gray-500">Total</p>
             <p className="font-bold text-lg">
-              MWK {total.toLocaleString()}
+              MWK {order.price}
             </p>
           </div>
         </div>
