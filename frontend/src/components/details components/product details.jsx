@@ -1,14 +1,19 @@
 
+import { useState } from "react";
 import { FiStar, FiX } from "react-icons/fi"
 import { IoMdWarning } from "react-icons/io";
 
 const ProductDetails = ({product}) =>{
-           
-         return(
-               <div className={`p-10  mb-20 w-full bg-white`}>
+           const [choosenColor, setChoosenColor]= useState(null)
+           const handleChoosenColor =(color)=>{
+                  setChoosenColor(color)
+                  console.log(color)
+           }
+           return(
+               <div className={`max-w-[1280px] mx-auto px-5 my-20 bg-white`}>
                 <article className={` w-full`}>
                     {/*CONTAINER*/}
-                    <div className="m-8 overflow-hidden h-[85vh]  grid grid-cols-1 gap-4 md:grid-cols-5">
+                    <div className="overflow-hidden h-[85vh]  grid grid-cols-1 gap-4 md:grid-cols-5">
                     {/*PRODUCT PICTURE/S */}
                     <div className="col-span-2 overflow-y-auto space-y-8 box-border">
                        <figure className="relative overflow-hidden h rounded-md ">
@@ -18,7 +23,7 @@ const ProductDetails = ({product}) =>{
                           />
                          {product.featured && <figcaption className="absolute top-2 left-2 px-2 py-1 bg-white rounded-full ">Featured</figcaption>} 
                        </figure>
-                       <div className="w-full h-fit grid grid-cols-2 grid-rows-2 gap-2 border border-black/20 p-2">
+                       <div className="w-full h-fit grid grid-cols-2 grid-rows-2 gap-2 border border-black/20 md:p-2">
                         
                           <img src={product.image}
                               alt="medium sized" 
@@ -41,7 +46,7 @@ const ProductDetails = ({product}) =>{
                       
                     </div>
                     {/*PRODUCT DESCRIPTIONS */}
-                    <div className="md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 border overflow-y-auto gap-4 bg-white rounded-r-md p-5 ">
+                    <div className="mx-auto w-full md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 overflow-y-auto gap-4 bg-white md:rounded-r-md p-5 ">
                       <div className="space-y-3">
                         <span className="inline-flex items-center gap-2">
                             <strong className="uppercase">{product.brand}</strong>
@@ -60,7 +65,7 @@ const ProductDetails = ({product}) =>{
                         </div>
                        </div>
                         {/*PRICE */}
-                        <div className="inline-flex gap-3 items-center text-[16px] md:text-[16px] text-gray-500 border  border-green-500/10 bg-green-600/70 p-2 rounded-md shadow-sm">
+                        <div className="inline-flex gap-3 items-center text-[16px] md:text-[16px] text-gray-500 border border-green-500/10 bg-green-600/70 p-2 rounded-md shadow-sm">
                             <p className="text-black font-semibold ">  
                                 MWK {(product.price * 3000).toLocaleString()}
                             </p>
@@ -81,30 +86,39 @@ const ProductDetails = ({product}) =>{
                         <p className="-mt-4">{product.description}</p>
                       
                         {/*COLORS */}
-                        <label className="flex flex-col font-semibold text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                            Pick your favorite color:
+                        <label className="flex flex-col font-semibold text-gray-500 whitespace-nowrap border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                           <p className="inline-flex gap-2 items-center nowrap">
+                              Pick your favorite color: {choosenColor && <strong className={`size-10 border ${choosenColor}`}></strong>}
+                            </p> 
                             <div className="my-2 inline-flex gap-1">
                                 {product.colors.map((color)=>
-                                    <input type="color" key={color.id} className={`size-10 rounded-md`}/> 
+                                    <button 
+                                         key={color.id} 
+                                         className={`size-10 rounded-md border ${color.bgColor}`}
+                                         onClick={()=>handleChoosenColor(color.bgColor)}
+                                         >
+                                    </button>
                                   )
                                 }
                             </div>
                         </label>
 
                         {/*SIZES */}
-                        <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                        {Boolean(product.sizes) && 
+                         <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
                             <p className="font-semibold">  Select your size</p>
                             <select className="my-2 inline-flex gap-2 bg-gray-50 border border-black/10 outline-none rounded-md px-5 py-1 rounded-[5px]">
-                                {product.sizes.map((size)=>
+                                { product.sizes.map((size)=>
                                    <option 
                                       key={size}
                                       value="" 
-                                      className="w-">
+                                      className="w">
                                         {size}
                                    </option>
                                  )}
                             </select>
                         </div>
+                        }
 
                         {/*SELECT QUANTITY */}
                         <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
