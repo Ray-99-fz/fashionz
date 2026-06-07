@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { products } from "../../data/products";
-import ProductDetails from "./product details";
+import ProductDetails from "../../pages/Details";
 import ProductCard from "./product card";
 import { useState } from "react";
 const HomeListing = () => {
@@ -12,11 +12,10 @@ const HomeListing = () => {
   // VIEW PRODUCT DETAILS
   const [isviewed, setIsViewed] = useState(null);
   const handleViewDetails = (id)=>{
-        setIsViewed(id); 
-        console.log(selectedProduct)
+        setIsViewed(id);
         }
   // GET CLICKED PRODUCT
-  const selectedProduct = products.filter((product)=> product.id===isviewed)
+  const selectedProducts = products.filter((product)=> isviewed && product.id===isviewed)
 
   return (
     <section className="py-24 bg-white">
@@ -42,24 +41,11 @@ const HomeListing = () => {
           {featuredProducts.map((product)=>(
                <ProductCard 
                  key={product.id}
-                 {...product}
-                 isViewed={isviewed}
-                 onView={handleViewDetails}
+                 product={product}
+
                />
           ))}
         </div>
-        {/*PRODUCT DETAILS */}
-        {
-          selectedProduct.map((product)=>
-            <ProductDetails 
-               key={product.id}
-               {...product}
-               isViewed={isviewed}
-               onView={handleViewDetails}
-               
-             />   
-          )
-        }
         {/*<ProductDetails isViewed={isviewed} id={1} onView={handleViewDetails}/>*/}
 
         {/* Bottom CTA */}

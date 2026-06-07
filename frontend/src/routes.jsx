@@ -6,6 +6,7 @@ import {
 import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/Landing";
 import Products from "./pages/Products";
+import Details from "./pages/Details";
 
 
 const router = createBrowserRouter(
@@ -15,9 +16,11 @@ const router = createBrowserRouter(
             Component: AppLayout,
             children: [
                 {index: true, Component: Landing},
-                {path: "/products/:slug", Component: Products}
+                {path: "/products/:slug", Component: Products},
+                {path: "/details/:id", Component: Details }
             ]
         }
+        
     ]
     // createRoutesFromElements(
     //     <Route path="/" element={<AppLayout />}>

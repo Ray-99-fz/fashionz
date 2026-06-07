@@ -1,5 +1,9 @@
 import { useParams } from "react-router-dom";
 import { products } from "../../data/products";
+import ProductCard from "../home components/product card";
+
+
+import { useState } from "react";
 
 const ProductCatalog = () => {
   const { slug } = useParams();
@@ -20,7 +24,14 @@ const ProductCatalog = () => {
     !slug || slug === "shop"
       ? "Explore premium menswear, womenswear and accessories curated to bring together timeless design, quality craftsmanship and modern fashion trends."
       : `Discover our curated selection of ${slug} designed with quality, comfort and modern fashion in mind.`;
-
+  
+  
+      // VIEW PRODUCT DETAILS
+  const [isviewed, setIsViewed] = useState(null);
+  const handleViewDetails = (id)=>{
+        setIsViewed(id);
+        }
+  
   return (
     <section className="py-24 bg-white">
       <div className="max-w-[1280px] mx-auto px-5">
@@ -42,12 +53,23 @@ const ProductCatalog = () => {
 
         {/* Products */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredProducts.map((product) => (
+            {filteredProducts.map((product)=>(
+               <ProductCard 
+                 key={product.id}
+                 product={product}
+                 
+               />
+          ))}    
+
+           {/*TEMPORARILY COMMENTED OUT HARDCODED CARD TO USE REUSABLE COMPONENT */}
+          {/* filteredProducts.map((product) => (
+            
+            
             <div
               key={product.id}
-              className="group cursor-pointer"
+              className=" group cursor-pointer"
             >
-              {/* Image */}
+              {/* Image 
               <div className="relative overflow-hidden rounded-2xl bg-gray-100">
                 <img
                   src={product.image}
@@ -98,7 +120,7 @@ const ProductCatalog = () => {
                 </div>
               </div>
 
-              {/* Product Info */}
+              {/* Product Info 
               <div className="mt-4">
                 <p className="uppercase tracking-widest text-xs text-gray-400">
                   {product.category}
@@ -131,7 +153,7 @@ const ProductCatalog = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
 
         {filteredProducts.length === 0 && (

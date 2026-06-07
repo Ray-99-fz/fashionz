@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import { FiFacebook, FiLinkedin} from "react-icons/fi";
 
 const Footer = ()=>{
@@ -6,8 +6,8 @@ const Footer = ()=>{
                <footer className="w-full bg-gray-200">
                    <div className="max-w-[1280px] grid grid-cols-1 md:grid-cols-2 mx-auto px-5 text-gray-500">
                        <div className="p-10  space-y-10">
-                          <NavLink
-                            to="/"
+                          <div
+                            
                             className="flex items-center gap-3 cursor-pointer"
                             >
                             <img
@@ -24,7 +24,7 @@ const Footer = ()=>{
                                 Fashion Hub
                             </p>
                             </div>
-                         </NavLink>
+                         </div>
                          <p className="text-[18px]">
                             Exceptional apparel and accessories 
                             designed for individuals who demand 
@@ -43,16 +43,16 @@ const Footer = ()=>{
                        <div className="w-full h-full p-10 ">
                           <h1 className="font-semibold text-gray-900 tracking-[0.25em] uppercase mb-5 ">collections</h1>
                           <ul className="flex flex-col gap-5">
-                              <NavLink to='/men' className='uppercase border-b border-white/70 py-1'>
+                              <NavLink to='/products/mens'  className='uppercase border-b border-white/70 py-1 hover:text-gray-900 transition-all duration-500'>
                                  mens
                               </NavLink>
-                              <NavLink to='/men' className='uppercase border-b border-white/70 py-1'>
+                              <NavLink to='/products/womens' className='uppercase border-b border-white/70 py-1 hover:text-gray-900 transition-all duration-500'>
                                  womens
                               </NavLink>
-                              <NavLink to='/men' className='uppercase border-b border-white/70 py-1'>
+                              <NavLink to='/products/shop' className='uppercase border-b border-white/70 py-1 hover:text-gray-900 transition-all duration-500'>
                                  all products
                               </NavLink>
-                              <NavLink to='/men' className='uppercase border-b border-white/70 py-1'>
+                              <NavLink to='/products/accessories' className='uppercase border-b border-white/70 py-1 hover:text-gray-900 transition-all duration-500'>
                                  accessories
                               </NavLink>
 

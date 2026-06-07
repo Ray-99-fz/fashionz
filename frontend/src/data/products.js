@@ -496,7 +496,7 @@ export const products = [
     featured: true,
     colors: [
             {
-              id:2,
+              id:1,
               name:"Blue", 
               bgColor:'bg-blue-600'
             }, 

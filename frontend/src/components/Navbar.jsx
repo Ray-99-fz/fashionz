@@ -73,15 +73,15 @@ const Navbar = () => {
       {/* Overlay */}
       {/*REMOVED ONCLICK HANDLER ON OVERLAY BECAUSE IT CONFLICTS WITH NATIVE REMOVE BUTTON ON MENU CONTAINER*/}
       <div
-        className={`hidden fixed inset-0 z-50 h-screen bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          nav ? "opacity-0 invisible" : "opacity-100 visible"
+        className={`fixed inset-0 z-50 h-screen bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          nav ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       />
 
       {/* Mobile Menu */}
       <aside
         className={`md:hidden fixed right-0 h-screen w-full bg-white z-50 shadow-2xl transition-all duration-300 ease-in-out
-        ${nav ? "translate-x-full" : "translate-x-0"}`}
+        ${nav ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="flex flex-col h-full p-6">
           {/* Top */}

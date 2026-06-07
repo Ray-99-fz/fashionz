@@ -1,7 +1,13 @@
+import { Link } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-
-const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewed, onView})=>{
+const ProductCard = ({product})=>{
+        const navigate =useNavigate();
+        const handNavigation = ()=>{
+             navigate(`/details/${product.id}`) 
+        }
          return(
+           
             <div
               className="group cursor-pointer"
             >
@@ -16,8 +22,8 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewe
 
                 {/* Product Image */}
                 <img
-                  src={image}
-                  alt={name}
+                  src={product.image}
+                  alt={product.name}
                   className="w-full h-[450px] object-cover group-hover:scale-105 transition-all duration-700"
                 />
 
@@ -26,7 +32,7 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewe
 
                 {/* Quick View Button */}
                 <div className="absolute bottom-5 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <button onClick={()=>onView(id)} className="bg-white text-black px-6 py-3 rounded-xl font-medium shadow-xl hover:bg-black hover:text-white transition-all duration-300">
+                  <button  onClick={handNavigation} className="bg-white text-black px-6 py-3 rounded-xl font-medium shadow-xl hover:bg-black hover:text-white transition-all duration-300">
                      Quick View
                   </button>
                 </div>
@@ -36,11 +42,11 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewe
               <div className="mt-5 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
-                    {category}
+                    {product.category}
                   </p>
 
                   <h3 className="text-lg font-semibold text-gray-900">
-                    {name}
+                    {product.name}
                   </h3>
 
                   {/* Rating */}
@@ -50,7 +56,7 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewe
                     </span>
 
                     <span className="text-sm text-gray-500">
-                      ({reviews} reviews)
+                      ({product.reviews} reviews)
                     </span>
                   </div>
                 </div>
@@ -58,15 +64,16 @@ const ProductCard = ({id, image, name, category,reviews, price,oldPrice, isViewe
                 {/* Price */}
                 <div className="text-right">
                   <p className="text-xl font-bold text-gray-900">
-                    MWK {(price * 3000).toLocaleString()}
+                    MWK {(product.price * 3000).toLocaleString()}
                   </p>
 
                   <p className="text-sm text-gray-400 line-through">
-                    MWK {(oldPrice * 3000).toLocaleString()}
+                    MWK {(product.oldPrice * 3000).toLocaleString()}
                   </p>
                 </div>
               </div>
             </div>
+
          )
 }
 export default ProductCard;
