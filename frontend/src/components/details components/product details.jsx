@@ -4,6 +4,9 @@ import { FiStar, FiX } from "react-icons/fi"
 import { IoMdWarning } from "react-icons/io";
 
 const ProductDetails = ({product}) =>{
+            
+           // USING STATE TO MANAGE USER PREERENCE COLORS. EASY APPROACH FOR RESTRICTING THE 
+           // USER TO CHOOSE FROM WHAT IS AVILABLE
            const [choosenColor, setChoosenColor]= useState(null)
            const handleChoosenColor =(color)=>{
                   setChoosenColor(color)
