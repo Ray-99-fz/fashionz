@@ -7,6 +7,7 @@ import AppLayout from "./layouts/AppLayout";
 import Landing from "./pages/Landing";
 import Products from "./pages/Products";
 import Details from "./pages/Details";
+import Checkout from "./pages/Checkout";
 
 
 const router = createBrowserRouter(
@@ -17,7 +18,8 @@ const router = createBrowserRouter(
             children: [
                 {index: true, Component: Landing},
                 {path: "/products/:slug", Component: Products},
-                {path: "/details/:id", Component: Details }
+                {path: "/details/:id", Component: Details },
+                {path: '/checkout', Component: Checkout}
             ]
         }
         
