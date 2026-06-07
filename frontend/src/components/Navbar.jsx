@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { IoIosClose } from "react-icons/io";
@@ -131,7 +131,9 @@ const Navbar = () => {
           {/* Bottom CTA */}
           <div className="mt-auto">
             <button className="w-full bg-black text-white py-4 rounded-xl font-medium hover:bg-gray-900 transition-all duration-300">
-              SHOP NOW
+              <Link to="/products/shop">
+                SHOP NOW
+              </Link>
             </button>
           </div>
         </div>
