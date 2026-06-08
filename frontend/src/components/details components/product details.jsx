@@ -146,6 +146,7 @@ const ProductDetails = ({product}) =>{
                         </label>
 
                         {/*SIZES */}
+                        {Boolean(product.sizes) && 
                         <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
                             <p className="font-semibold">  Select your size</p>
                             <select 
@@ -164,6 +165,7 @@ const ProductDetails = ({product}) =>{
                                  )}
                             </select>
                         </div>
+                        }
 
                         {/*SELECT QUANTITY */}
                         <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
