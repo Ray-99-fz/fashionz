@@ -6,6 +6,13 @@ import { useOrder } from "../../utils/OrderContext";
 import { useState } from "react";
 
 const ProductDetails = ({product}) =>{
+
+        const [choosenColor, setChoosenColor]= useState(null)
+           const handleChoosenColor =(color)=>{
+                  setChoosenColor(color)
+                  console.log(color)
+           }
+
         const [item, setItem] = useState({
             
             size: '',
