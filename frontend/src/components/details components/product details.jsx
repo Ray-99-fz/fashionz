@@ -16,7 +16,6 @@ const ProductDetails = ({product}) =>{
         const [item, setItem] = useState({
             
             size: '',
-            color: '',
             quantity: '',
             
         })
@@ -44,7 +43,7 @@ const ProductDetails = ({product}) =>{
                 id: product.id,
                 name: product.name,
                 size: item.size,
-                color: item.color,
+                color: choosenColor,
                 quantity: item.quantity,
                 price: totalPrice.toLocaleString()
             })
@@ -129,18 +128,18 @@ const ProductDetails = ({product}) =>{
                         <p className="-mt-4">{product.description}</p>
                       
                         {/*COLORS */}
-                        <label className="flex flex-col font-semibold text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                            Pick your favorite color:
+                        <label className="flex flex-col font-semibold text-gray-500 whitespace-nowrap border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                           <p className="inline-flex gap-2 items-center nowrap">
+                              Pick your favorite color: {choosenColor && <strong className={`size-10 border ${choosenColor}`}></strong>}
+                            </p> 
                             <div className="my-2 inline-flex gap-1">
                                 {product.colors.map((color)=>
-                                    <input 
-                                        type="color" 
-                                        name="color"
-                                        value={item.color}
-                                        onChange={handleInputChange}
-                                        key={color.id} 
-                                        className={`size-10 rounded-md`}
-                                    /> 
+                                    <button 
+                                         key={color.id} 
+                                         className={`size-10 rounded-md border ${color.bgColor}`}
+                                         onClick={()=>handleChoosenColor(color.bgColor)}
+                                         >
+                                    </button>
                                   )
                                 }
                             </div>
