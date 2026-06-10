@@ -2,18 +2,58 @@
 import { useState } from "react";
 import { FiStar, FiX } from "react-icons/fi"
 import { IoMdWarning } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import { useOrder } from "../../utils/OrderContext";
+import { useState } from "react";
 
 const ProductDetails = ({product}) =>{
-            
-           // USING STATE TO MANAGE USER PREERENCE COLORS. EASY APPROACH FOR RESTRICTING THE 
-           // USER TO CHOOSE FROM WHAT IS AVILABLE
-           const [choosenColor, setChoosenColor]= useState(null)
+
+        const [choosenColor, setChoosenColor]= useState(null)
            const handleChoosenColor =(color)=>{
                   setChoosenColor(color)
                   console.log(color)
            }
-           return(
-               <div className={`max-w-[1280px] mx-auto px-5 my-20 bg-white`}>
+
+        const [item, setItem] = useState({
+            
+            size: '',
+            quantity: '',
+            
+        })
+
+        const navigate = useNavigate()
+        const productPrice = (product.price * 3000).toLocaleString()
+
+        const handleInputChange = (e) => {
+            const {name, value} = e.target
+
+            setItem(prev => ({
+                ...prev,
+                [name]: value
+            }))
+        }
+
+           const { setOrder } = useOrder()
+
+           const handleBuyNow = () => {
+            
+            const totalPrice = Number(productPrice.replace(/,/g, "")) * Number(item.quantity);
+
+
+            setOrder({
+                id: product.id,
+                name: product.name,
+                size: item.size,
+                color: choosenColor,
+                quantity: item.quantity,
+                price: totalPrice.toLocaleString()
+            })
+
+            navigate('/checkout')
+           }
+
+         return(
+               <div className={`p-10  mb-20 w-full bg-white`}>
                 <article className={` w-full`}>
                     {/*CONTAINER*/}
                     <div className="overflow-hidden h-[85vh]  grid grid-cols-1 gap-4 md:grid-cols-5">
@@ -108,14 +148,19 @@ const ProductDetails = ({product}) =>{
 
                         {/*SIZES */}
                         {Boolean(product.sizes) && 
-                         <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                        <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
                             <p className="font-semibold">  Select your size</p>
-                            <select className="my-2 inline-flex gap-2 bg-gray-50 border border-black/10 outline-none rounded-md px-5 py-1 rounded-[5px]">
-                                { product.sizes.map((size)=>
+                            <select 
+                                value={item.size}
+                                onChange={handleInputChange}
+                                name="size"
+                                className="my-2 inline-flex gap-2 bg-gray-50 border border-black/10 outline-none rounded-md px-5 py-1 rounded-[5px]"
+                            >
+                                {product.sizes.map((size)=>
                                    <option 
                                       key={size}
-                                      value="" 
-                                      className="w">
+                                      value={size} 
+                                      className="w-">
                                         {size}
                                    </option>
                                  )}
@@ -127,7 +172,15 @@ const ProductDetails = ({product}) =>{
                         <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
                           <label className="my-2 flex flex-col gap-2 font-semibold">
                              Provide products quantity
-                              <input type="number" min='0' max={product.stock} className="w-16 bg-gray-50/30 border border-black/10 px-2 outline-none rounded-[5px]" />
+                              <input 
+                                type="number" 
+                                value={item.quantity}
+                                name="quantity"
+                                onChange={handleInputChange}
+                                min='0' 
+                                max={product.stock} 
+                                className="w-16 bg-gray-50/30 border border-black/10 px-2 outline-none rounded-[5px]" 
+                                />
                            </label>
                            <div className="h-fit flex flex-col gap-1 bg-red-500/10 items-center text-[12px] font-semibold whitespace-nowrap p-2 text-black border border-red-500 rounded-[5px]">
                               <IoMdWarning className="size-5 text-red-500"/>
@@ -138,7 +191,8 @@ const ProductDetails = ({product}) =>{
                         </fieldset>
                         {/*CTA BUTTONS*/}
                         <div className="flex flex-col gap-3">
-                            <button
+                            <button to='/checkout'
+                                    onClick={handleBuyNow}
                                     className="p-5 border rounded-md bg-black text-white font-bold">
                                 Buy Now
                             </button>
