@@ -4,15 +4,14 @@ import { FiStar, FiX } from "react-icons/fi"
 import { IoMdWarning } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { useOrder } from "../../utils/OrderContext";
-import { useState } from "react";
+
 
 const ProductDetails = ({product}) =>{
 
         const [choosenColor, setChoosenColor]= useState(null)
-           const handleChoosenColor =(color)=>{
-                  setChoosenColor(color)
-                  console.log(color)
-           }
+        const handleChoosenColor =(color)=>{
+                 setChoosenColor(color)      
+        }
 
         const [item, setItem] = useState({
             
@@ -44,7 +43,7 @@ const ProductDetails = ({product}) =>{
                 id: product.id,
                 name: product.name,
                 size: item.size,
-                color: choosenColor,
+                color: choosenColor.name,
                 quantity: item.quantity,
                 price: totalPrice.toLocaleString()
             })
@@ -53,7 +52,7 @@ const ProductDetails = ({product}) =>{
            }
 
          return(
-               <div className={`p-10  mb-20 w-full bg-white`}>
+               <div className={`p-5 md:px-15 mb-20 w-full bg-white`}>
                 <article className={` w-full`}>
                     {/*CONTAINER*/}
                     <div className="overflow-hidden h-[85vh]  grid grid-cols-1 gap-4 md:grid-cols-5">
@@ -89,7 +88,7 @@ const ProductDetails = ({product}) =>{
                       
                     </div>
                     {/*PRODUCT DESCRIPTIONS */}
-                    <div className="mx-auto w-full md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 overflow-y-auto gap-4 bg-white md:rounded-r-md p-5 ">
+                    <div className="mx-auto w-full md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 overflow-y-auto gap-4 bg-white md:rounded-r-md">
                       <div className="space-y-3">
                         <span className="inline-flex items-center gap-2">
                             <strong className="uppercase">{product.brand}</strong>
@@ -131,14 +130,14 @@ const ProductDetails = ({product}) =>{
                         {/*COLORS */}
                         <label className="flex flex-col font-semibold text-gray-500 whitespace-nowrap border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
                            <p className="inline-flex gap-2 items-center nowrap">
-                              Pick your favorite color: {choosenColor && <strong className={`size-10 border ${choosenColor}`}></strong>}
+                              Pick your favorite color: {choosenColor && <strong className={`size-10 border ${choosenColor.bgColor}`}></strong>}
                             </p> 
                             <div className="my-2 inline-flex gap-1">
                                 {product.colors.map((color)=>
                                     <button 
                                          key={color.id} 
                                          className={`size-10 rounded-md border ${color.bgColor}`}
-                                         onClick={()=>handleChoosenColor(color.bgColor)}
+                                         onClick={()=>handleChoosenColor(color)}
                                          >
                                     </button>
                                   )
@@ -178,6 +177,7 @@ const ProductDetails = ({product}) =>{
                                 name="quantity"
                                 onChange={handleInputChange}
                                 min='0' 
+                                required
                                 max={product.stock} 
                                 className="w-16 bg-gray-50/30 border border-black/10 px-2 outline-none rounded-[5px]" 
                                 />

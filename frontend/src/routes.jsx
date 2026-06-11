@@ -9,7 +9,7 @@ import Products from "./pages/Products";
 import Details from "./pages/Details";
 import Checkout from "./pages/Checkout";
 import Receipt from "./pages/Receipt";
-
+import Admin from "./pages/admin";
 
 const router = createBrowserRouter(
     [
@@ -20,7 +20,8 @@ const router = createBrowserRouter(
                 {index: true, Component: Landing},
                 {path: "/products/:slug", Component: Products},
                 {path: "/details/:id", Component: Details },
-                {path: '/checkout', Component: Checkout}
+                {path: '/checkout', Component: Checkout},
+                {path: '/admin', Component: Admin}
             ]
         },
 

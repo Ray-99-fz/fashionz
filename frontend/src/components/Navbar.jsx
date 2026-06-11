@@ -59,6 +59,9 @@ const Navbar = () => {
               </NavLink>
             ))}
           </div>
+          <Link to='/admin' className="px-4 py-1 border border-black/70 rounded-md text-[24px]">
+             Admin
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
