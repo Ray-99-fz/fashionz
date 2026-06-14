@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { FiStar, FiX } from "react-icons/fi"
-import { IoMdWarning } from "react-icons/io";
+import { IoMdStar, IoMdWarning } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { useOrder } from "../../utils/OrderContext";
 
@@ -55,9 +55,9 @@ const ProductDetails = ({product}) =>{
                <div className={`p-5 md:px-15 mb-20 w-full bg-white`}>
                 <article className={` w-full`}>
                     {/*CONTAINER*/}
-                    <div className="overflow-hidden h-[85vh]  grid grid-cols-1 gap-4 md:grid-cols-5">
+                    <div className="overflow-hidden flex flex-col md:grid md:grid-cols-5 gap-10 py-10">
                     {/*PRODUCT PICTURE/S */}
-                    <div className="col-span-2 overflow-y-auto space-y-8 box-border">
+                    <div className="border border-black col-span-2 overflow-y-auto space-y-8 box-border">
                        <figure className="relative overflow-hidden h rounded-md ">
                           <img src={product.image}
                               alt="medium sized" 
@@ -88,49 +88,51 @@ const ProductDetails = ({product}) =>{
                       
                     </div>
                     {/*PRODUCT DESCRIPTIONS */}
-                    <div className="mx-auto w-full md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 overflow-y-auto gap-4 bg-white md:rounded-r-md">
-                      <div className="space-y-3">
-                        <span className="inline-flex items-center gap-2">
+                    
+                    <div className="h-fit md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 text-[22px] gap-10  md:rounded-r-md">
+                      <div className="space-y-4 text-[22px]">
+                        <span className="inline-flex items-center gap-2 font-semibold">
                             <strong className="uppercase">{product.brand}</strong>
                             {product.category}
                         </span>
-                        <h2 className="font-semibold">{product.name}</h2>
+                        <h2 className="font-normal">{product.name}</h2>
                     
                         {/*RATINGS AND VIEWS */}
                         <div className="inline-flex gap-3 items-center">
-                          <span className="inline-flex gap-3 text-yellow-500">
-                            <FiStar className="size-4"/>
-                            <FiStar className="size-4"/>
-                            <FiStar className="size-4"/>
+                          <span className="inline-flex items-center gap-3 text-orange-400">
+                            <IoMdStar className="size-7"/>
+                            <IoMdStar className="size-7"/>
+                            <IoMdStar className="size-7"/>
+                            <IoMdStar className="size-7"/>
+                            <FiStar className="size-5"/>
                           </span>
                           <span className="font-semibold"> {product.rating} reviews</span>
                         </div>
                        </div>
                         {/*PRICE */}
-                        <div className="inline-flex gap-3 items-center text-[16px] md:text-[16px] text-gray-500 border border-green-500/10 bg-green-600/70 p-2 rounded-md shadow-sm">
-                            <p className="text-black font-semibold ">  
+                        <div className="inline-flex gap-3 justify-between items-center text-[22px] text-black bg-green-600 rounded-sm shadow-sm px-2 py-2">
+                            <p className="text-black font-bold ">  
                                 MWK {(product.price * 3000).toLocaleString()}
                             </p>
-                            <p className="text-gray-500 text-[17px] line-through">
+                            <p className="text-gray-900 text-[18px] font-semibold line-through">
                                 MWK {(product.oldPrice * 3000).toLocaleString()}
                             </p>
-                            <p className=" bg-yellow-300 border border-yellow-600
-                               text-black white yellow-500 text-[10px] font-bold flex flex-col items-center p-[5px] 
-                              rounded-full  whitespace-nowrap">
-                              {((((product.oldPrice * 3000)-(product.price * 3000))/(product.price * 3000))*100).toFixed(2)} 
-                                %
-                                <strong className="text-[x]">Off</strong>
-                                
-                            </p>
+                            <div className="flex size-24 bg-orange-800 p-3 rounded-full">
+                                <p className="m-auto flex flex-col items-center">
+                                    {((((product.oldPrice * 3000)-(product.price * 3000))/(product.price * 3000))*100).toFixed(2)} 
+                                     %
+                                    <strong className="text-[x]">Off</strong> 
+                                </p>
+                            </div>
                         </div>
                          
                         {/*DESCRIPTION */}
-                        <p className="-mt-4">{product.description}</p>
+                        <p className="my-6 text-[22px]">{product.description}</p>
                       
                         {/*COLORS */}
-                        <label className="flex flex-col font-semibold text-gray-500 whitespace-nowrap border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                           <p className="inline-flex gap-2 items-center nowrap">
-                              Pick your favorite color: {choosenColor && <strong className={`size-10 border ${choosenColor.bgColor}`}></strong>}
+                        <label className="flex flex-col font-semibold  text-gray-500 whitespace-nowrap border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                           <p className="flex md:flex-col gap-4 items-center md:items-start wrap">
+                              Pick your favorite color: {choosenColor && <strong className={`size-8 border border-black rounded-full shrink-0 ${choosenColor.bgColor}`}></strong>}
                             </p> 
                             <div className="my-2 inline-flex gap-1">
                                 {product.colors.map((color)=>
@@ -147,13 +149,13 @@ const ProductDetails = ({product}) =>{
 
                         {/*SIZES */}
                         {Boolean(product.sizes) && 
-                        <div className="text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                        <div className="text-gray-500 border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
                             <p className="font-semibold">  Select your size</p>
                             <select 
                                 value={item.size}
                                 onChange={handleInputChange}
                                 name="size"
-                                className="my-2 inline-flex gap-2 bg-gray-50 border border-black/10 outline-none rounded-md px-5 py-1 rounded-[5px]"
+                                className="my-2 inline-flex gap-2 bg-gray-50 border border-black/30 outline-none rounded-md px-5 py-1 rounded-[5px]"
                             >
                                 {product.sizes.map((size)=>
                                    <option 
@@ -168,9 +170,9 @@ const ProductDetails = ({product}) =>{
                         }
 
                         {/*SELECT QUANTITY */}
-                        <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/10 bg-gray-50/30 p-2 rounded-md shadow-sm">
+                        <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
                           <label className="my-2 flex flex-col gap-2 font-semibold">
-                             Provide products quantity
+                             Number of products
                               <input 
                                 type="number" 
                                 value={item.quantity}
@@ -179,11 +181,11 @@ const ProductDetails = ({product}) =>{
                                 min='0' 
                                 required
                                 max={product.stock} 
-                                className="w-16 bg-gray-50/30 border border-black/10 px-2 outline-none rounded-[5px]" 
+                                className="w-16 bg-gray-50/30 border border-black/30 px-2 outline-none rounded-[5px]" 
                                 />
                            </label>
-                           <div className="h-fit flex flex-col gap-1 bg-red-500/10 items-center text-[12px] font-semibold whitespace-nowrap p-2 text-black border border-red-500 rounded-[5px]">
-                              <IoMdWarning className="size-5 text-red-500"/>
+                           <div className="h-fit flex flex-col gap-1 bg-red-700/10 items-center text-[16px] font-semibold whitespace-nowrap p-2 text-black border border-red-500 rounded-[5px]">
+                              <IoMdWarning className="size-7 text-red-600"/>
                               <p className="">Only</p>
                                <strong className=""> {product.stock}</strong>
                                 Remaining

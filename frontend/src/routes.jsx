@@ -20,14 +20,17 @@ const router = createBrowserRouter(
                 {index: true, Component: Landing},
                 {path: "/products/:slug", Component: Products},
                 {path: "/details/:id", Component: Details },
-                {path: '/checkout', Component: Checkout},
-                {path: '/admin', Component: Admin}
+                {path: '/checkout', Component: Checkout},   
             ]
-        },
 
+        },
         {
             path: '/receipt',
             Component: Receipt
+        },
+        {
+         path: '/admin', 
+         Component: Admin
         }
         
     ]
