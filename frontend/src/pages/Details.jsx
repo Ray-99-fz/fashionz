@@ -8,7 +8,7 @@ import TrendingProducts from "../components/details components/trending";
 const Details = () =>{
 
         const {id}= useParams();
-        const product = products.find(p => p.id === parseInt(id, 10));
+        const product = products.find(param => param.id === parseInt(id, 10));
            
         return(
                 <>

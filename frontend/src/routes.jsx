@@ -10,6 +10,10 @@ import Details from "./pages/Details";
 import Checkout from "./pages/Checkout";
 import Receipt from "./pages/Receipt";
 import Admin from "./pages/admin";
+import { NewOrders } from "./components/admin components/new orders";
+import { DispatchedOrders } from "./components/admin components/dispatched orders";
+import NoPageFund from "./components/no match";
+
 
 const router = createBrowserRouter(
     [
@@ -29,8 +33,18 @@ const router = createBrowserRouter(
             Component: Receipt
         },
         {
-         path: '/admin', 
-         Component: Admin
+            path: '/admin', 
+            Component: Admin,
+           /* children:[
+                {index: true, Component: NewOrders},
+                {path: 'new', Component: NewOrders},
+                {path: 'dispatched', Component: DispatchedOrders},
+            ]
+            */
+        },
+        {
+            path: '*',
+            Component:NoPageFund
         }
         
     ]
