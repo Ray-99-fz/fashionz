@@ -1,7 +1,38 @@
 import { HiUser } from "react-icons/hi";
+import {supabase} from "../../utils/supabaseClient";
+import { useState, useEffect } from "react";
 
 
 const OrderCard = () =>{
+    const [fetchError, setFetchError] = useState(null);
+    const [orders, setOrders] = useState([]);
+    let orderData = null;
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+          const {data, error} = await supabase
+            .from('orders')
+            .select('*')
+
+            orderData = data;
+
+            if (error) {
+              setFetchError("Could not fetch orders");
+              console.log(error);
+              setOrders([]);
+            }
+
+            if (orderData) {
+              setOrders(orderData);
+              setFetchError(null);
+              console.log("Fetched Orders:", orderData);
+            }
+        }
+
+        fetchOrders();
+    }, [])
+
+
               return(
                      <article 
                       className="
