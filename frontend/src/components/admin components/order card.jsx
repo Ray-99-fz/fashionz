@@ -1,13 +1,17 @@
 import { HiUser } from "react-icons/hi";
 
 
-const OrderCard = () =>{
+
+const OrderCard = ({ order, viewDetails}) =>{
+              
+
+              const color = order.product_color.toLowerCase();
               return(
                      <article 
                       className="
                         relative 
                         w-full flex 
-                        justify-bwtween 
+                        justify-between 
                         gap-4 shadow-lg 
                         rounded-md 
                         px-2 py-4 
@@ -18,16 +22,16 @@ const OrderCard = () =>{
                       <div className="space-y-4">
                          <h3 className="font-semibold">Product</h3>
                          <div className="flex gap-2">
-                           <img src="" alt="" className="w-[40px] bg-amber-700/80 overflow-hidden rounded-sm" />
+                           <div  className={`w-[40px] bg-${color} border overflow-hidden rounded-sm`} />
                            <div className="text-[14px] font-light">
                              <p className="">Name :  
                                  <b className="ml-2 text-[13px] font-semibold">
-                                  Tailored Cargo Pants
+                                  {order.product_name}
                                  </b> 
                               </p>
                              <p className="">Quantity : 
                                  <b className="ml-2 text-[13px] font-semibold">
-                                  5
+                                  {order.quantity}
                                  </b> 
                               </p>
                            </div>
@@ -43,12 +47,12 @@ const OrderCard = () =>{
                            <div className="text-[14px] font-light">
                              <p className="">Name : 
                                 <b className="ml-2 text-[13px] font-semibold">
-                                  Chisomo Bauka
+                                  {order.customer_name}
                                 </b> 
                              </p>
                              <p className="">Location : 
                                 <b className="ml-2 text-[13px] font-semibold">
-                                  Lilongwe
+                                  {order.customer_location}
                                 </b> 
                              </p>
                            </div>
@@ -56,7 +60,13 @@ const OrderCard = () =>{
                          
                       </div>
 
-                      <button className="absolute bottom-2 left-2 text-[13px] font-semibold text-green-600">
+                      <button
+                         onClick={() => viewDetails(order)} 
+                         className="absolute 
+                          bottom-2 left-2 
+                          text-[13px] 
+                          font-semibold 
+                          text-green-600">
                         Details 
                       </button>
                   </article>

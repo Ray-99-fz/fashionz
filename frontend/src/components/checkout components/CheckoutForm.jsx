@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { useOrder } from "../../utils/OrderContext";
 import { Navigate, useNavigate } from "react-router-dom";
+import { supabase } from "../../utils/supabaseClient";
 
 const CheckoutForm = () => {
-  const { order, setOrder } = useOrder()
+  const { order, setOrder } = useOrder();
 
-  console.log(order)
+  const navigate = useNavigate();
 
-  if (!order) {
-    return <Navigate to='/' />
-  }
-  
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,7 +18,9 @@ const CheckoutForm = () => {
     courier: "",
   });
 
-  console.log(formData)
+  if (!order) {
+    return <Navigate to="/" />;
+  }
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -30,22 +29,61 @@ const CheckoutForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    setOrder({
-      ...order,
-      customer: formData
-    })
-
-    console.log({
-      ...order,
-      customer: formData,
-    });
-
-    navigate('/receipt')
+  const completeOrder = {
+    ...order,
+    customer: formData,
   };
 
+  try {
+    setLoading(true);
+
+    const { data, error } = await supabase
+      .from("orders")
+      .insert([
+        {
+          product_id: completeOrder.id,
+          product_name: completeOrder.name,
+          product_price: completeOrder.unitPrice,
+          product_color: completeOrder.color,
+          product_size: completeOrder.size,
+          quantity: completeOrder.quantity,
+
+          customer_name: completeOrder.customer.name,
+          customer_email: completeOrder.customer.email,
+          customer_phone: completeOrder.customer.phone,
+          customer_location: completeOrder.customer.location,
+          courier_service: completeOrder.customer.courier,
+
+          payment_status: "paid",
+
+          total_amount: completeOrder.totalPrice,
+        },
+      ])
+      .select();
+
+    if (error) throw error;
+
+    console.log("Order Saved:", data);
+
+    setOrder({
+      ...completeOrder,
+      orderId: data[0].id,
+    });
+
+    navigate("/receipt");
+  } catch (error) {
+    console.error("Failed to save order:", error);
+
+    alert(
+      "Something went wrong while creating your order. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <section className="w-full py-20 bg-gray-50">
       <div className="max-w-[900px] mx-auto px-5">
@@ -71,25 +109,38 @@ const CheckoutForm = () => {
             Order Summary
           </h2>
 
-          <div className="grid grid-cols-2 gap-y-4">
-            <p className="text-gray-500">Product</p>
-            <p className="font-medium"> {order.name} </p>
+<div className="grid grid-cols-2 gap-y-4">
+  <p className="text-gray-500">Product</p>
+  <p className="font-medium">{order.name}</p>
 
-            <p className="text-gray-500">Color</p>
-            <p className="font-medium"> {order.color} </p>
+  <p className="text-gray-500">Brand</p>
+  <p className="font-medium">{order.brand}</p>
 
-            <p className="text-gray-500">Size</p>
-            <p className="font-medium"> {order.size} </p>
+  <p className="text-gray-500">Category</p>
+  <p className="font-medium capitalize">
+    {order.category}
+  </p>
 
-            <p className="text-gray-500">Quantity</p>
-            <p className="font-medium"> {order.quantity} </p>
+  <p className="text-gray-500">Color</p>
+  <p className="font-medium">{order.color}</p>
 
-            <p className="text-gray-500">Total</p>
-            <p className="font-bold text-lg">
-              MWK {order.price}
-            </p>
-          </div>
-        </div>
+  <p className="text-gray-500">Size</p>
+  <p className="font-medium">{order.size}</p>
+
+  <p className="text-gray-500">Quantity</p>
+  <p className="font-medium">{order.quantity}</p>
+
+  <p className="text-gray-500">Unit Price</p>
+  <p className="font-medium">
+    MWK {order.unitPrice?.toLocaleString()}
+  </p>
+
+  <p className="text-gray-500">Total</p>
+  <p className="font-bold text-lg">
+    MWK {order.totalPrice?.toLocaleString()}
+  </p>
+</div>
+</div>
 
         {/* Customer Form */}
         <form
@@ -202,24 +253,28 @@ const CheckoutForm = () => {
           </div>
 
           {/* CTA */}
-          <button
-            type="submit"
-            className="
-              w-full
-              mt-8
-              bg-black
-              text-white
-              py-4
-              rounded-xl
-              font-semibold
-              tracking-wide
-              hover:bg-gray-900
-              transition-all
-            "
-          >
-            Proceed to Payment
-          </button>
-        </form>
+<button
+  type="submit"
+  disabled={loading}
+  className="
+    w-full
+    mt-8
+    bg-black
+    text-white
+    py-4
+    rounded-xl
+    font-semibold
+    tracking-wide
+    hover:bg-gray-900
+    transition-all
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+  "
+>
+  {loading
+    ? "Creating Order..."
+    : "Confirm Order"}
+</button>        </form>
       </div>
     </section>
   );

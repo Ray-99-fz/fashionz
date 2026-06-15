@@ -1,208 +1,335 @@
-
 import { useState } from "react";
-import { FiStar, FiX } from "react-icons/fi"
+import { FiStar } from "react-icons/fi";
 import { IoMdStar, IoMdWarning } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useOrder } from "../../utils/OrderContext";
 
+const ProductDetails = ({ product }) => {
+  const navigate = useNavigate();
+  const { setOrder } = useOrder();
 
-const ProductDetails = ({product}) =>{
+  const [selectedColor, setSelectedColor] = useState(null);
 
-        const [choosenColor, setChoosenColor]= useState(null)
-        const handleChoosenColor =(color)=>{
-                 setChoosenColor(color)      
-        }
+  const [item, setItem] = useState({
+    size: "",
+    quantity: 1,
+  });
 
-        const [item, setItem] = useState({
-            
-            size: '',
-            quantity: '',
-            
-        })
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
 
-        const navigate = useNavigate()
-        const productPrice = (product.price * 3000).toLocaleString()
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-        const handleInputChange = (e) => {
-            const {name, value} = e.target
+    setItem((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-            setItem(prev => ({
-                ...prev,
-                [name]: value
-            }))
-        }
+  const handleBuyNow = () => {
+    // Validation
+    if (!selectedColor) {
+      alert("Please select a color.");
+      return;
+    }
 
-           const { setOrder } = useOrder()
+    if (product.sizes && !item.size) {
+      alert("Please select a size.");
+      return;
+    }
 
-           const handleBuyNow = () => {
-            
-            const totalPrice = Number(productPrice.replace(/,/g, "")) * Number(item.quantity);
+    if (!item.quantity || Number(item.quantity) < 1) {
+      alert("Please enter a valid quantity.");
+      return;
+    }
 
+    const unitPrice = product.price * 3000;
+    const totalPrice =
+      unitPrice * Number(item.quantity);
 
-            setOrder({
-                id: product.id,
-                name: product.name,
-                size: item.size,
-                color: choosenColor.name,
-                quantity: item.quantity,
-                price: totalPrice.toLocaleString()
-            })
+    setOrder({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      brand: product.brand,
+      category: product.category,
 
-            navigate('/checkout')
-           }
+      color: selectedColor.name,
 
-         return(
-               <div className={`p-5 md:px-15 mb-20 w-full bg-white`}>
-                <article className={` w-full`}>
-                    {/*CONTAINER*/}
-                    <div className="overflow-hidden flex flex-col md:grid md:grid-cols-5 gap-10 py-10">
-                    {/*PRODUCT PICTURE/S */}
-                    <div className="border border-black col-span-2 overflow-y-auto space-y-8 box-border">
-                       <figure className="relative overflow-hidden h rounded-md ">
-                          <img src={product.image}
-                              alt="medium sized" 
-                              className=" w-full h-full object-cover scale" 
-                          />
-                         {product.featured && <figcaption className="absolute top-2 left-2 px-2 py-1 bg-white rounded-full ">Featured</figcaption>} 
-                       </figure>
-                       <div className="w-full h-fit grid grid-cols-2 grid-rows-2 gap-2 border border-black/20 md:p-2">
-                        
-                          <img src={product.image}
-                              alt="medium sized" 
-                              className="size-25 object-cover rounded-md" 
-                          />
-                          <img src={product.image}
-                              alt="medium sized" 
-                              className="size-25 object-cover rounded-md" 
-                          />
-                          <img src={product.image}
-                              alt="medium sized" 
-                              className="size-25 object-cover rounded-md" 
-                          />
-                          <img src={product.image}
-                              alt="medium sized" 
-                              className="size-25 object-cover rounded-md" 
-                          />
-                      
-                       </div>
-                      
-                    </div>
-                    {/*PRODUCT DESCRIPTIONS */}
-                    
-                    <div className="h-fit md:col-span-3 relative grid grid-cols-1 md:grid-cols-2 text-[22px] gap-10  md:rounded-r-md">
-                      <div className="space-y-4 text-[22px]">
-                        <span className="inline-flex items-center gap-2 font-semibold">
-                            <strong className="uppercase">{product.brand}</strong>
-                            {product.category}
-                        </span>
-                        <h2 className="font-normal">{product.name}</h2>
-                    
-                        {/*RATINGS AND VIEWS */}
-                        <div className="inline-flex gap-3 items-center">
-                          <span className="inline-flex items-center gap-3 text-orange-400">
-                            <IoMdStar className="size-7"/>
-                            <IoMdStar className="size-7"/>
-                            <IoMdStar className="size-7"/>
-                            <IoMdStar className="size-7"/>
-                            <FiStar className="size-5"/>
-                          </span>
-                          <span className="font-semibold"> {product.rating} reviews</span>
-                        </div>
-                       </div>
-                        {/*PRICE */}
-                        <div className="inline-flex gap-3 justify-between items-center text-[22px] text-black bg-green-600 rounded-sm shadow-sm px-2 py-2">
-                            <p className="text-black font-bold ">  
-                                MWK {(product.price * 3000).toLocaleString()}
-                            </p>
-                            <p className="text-gray-900 text-[18px] font-semibold line-through">
-                                MWK {(product.oldPrice * 3000).toLocaleString()}
-                            </p>
-                            <div className="flex size-24 bg-orange-800 p-3 rounded-full">
-                                <p className="m-auto flex flex-col items-center">
-                                    {((((product.oldPrice * 3000)-(product.price * 3000))/(product.price * 3000))*100).toFixed(2)} 
-                                     %
-                                    <strong className="text-[x]">Off</strong> 
-                                </p>
-                            </div>
-                        </div>
-                         
-                        {/*DESCRIPTION */}
-                        <p className="my-6 text-[22px]">{product.description}</p>
-                      
-                        {/*COLORS */}
-                        <label className="flex flex-col font-semibold  text-gray-500 whitespace-nowrap border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                           <p className="flex md:flex-col gap-4 items-center md:items-start wrap">
-                              Pick your favorite color: {choosenColor && <strong className={`size-8 border border-black rounded-full shrink-0 ${choosenColor.bgColor}`}></strong>}
-                            </p> 
-                            <div className="my-2 inline-flex gap-1">
-                                {product.colors.map((color)=>
-                                    <button 
-                                         key={color.id} 
-                                         className={`size-10 rounded-md border ${color.bgColor}`}
-                                         onClick={()=>handleChoosenColor(color)}
-                                         >
-                                    </button>
-                                  )
-                                }
-                            </div>
-                        </label>
+      size: product.sizes
+        ? item.size
+        : "N/A",
 
-                        {/*SIZES */}
-                        {Boolean(product.sizes) && 
-                        <div className="text-gray-500 border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                            <p className="font-semibold">  Select your size</p>
-                            <select 
-                                value={item.size}
-                                onChange={handleInputChange}
-                                name="size"
-                                className="my-2 inline-flex gap-2 bg-gray-50 border border-black/30 outline-none rounded-md px-5 py-1 rounded-[5px]"
-                            >
-                                {product.sizes.map((size)=>
-                                   <option 
-                                      key={size}
-                                      value={size} 
-                                      className="w-">
-                                        {size}
-                                   </option>
-                                 )}
-                            </select>
-                        </div>
-                        }
+      quantity: Number(item.quantity),
 
-                        {/*SELECT QUANTITY */}
-                        <fieldset className="inline-flex gap-4 justify-between text-gray-500 border  border-black/30 bg-gray-50/30 p-2 rounded-md shadow-sm">
-                          <label className="my-2 flex flex-col gap-2 font-semibold">
-                             Number of products
-                              <input 
-                                type="number" 
-                                value={item.quantity}
-                                name="quantity"
-                                onChange={handleInputChange}
-                                min='0' 
-                                required
-                                max={product.stock} 
-                                className="w-16 bg-gray-50/30 border border-black/30 px-2 outline-none rounded-[5px]" 
-                                />
-                           </label>
-                           <div className="h-fit flex flex-col gap-1 bg-red-700/10 items-center text-[16px] font-semibold whitespace-nowrap p-2 text-black border border-red-500 rounded-[5px]">
-                              <IoMdWarning className="size-7 text-red-600"/>
-                              <p className="">Only</p>
-                               <strong className=""> {product.stock}</strong>
-                                Remaining
-                           </div>
-                        </fieldset>
-                        {/*CTA BUTTONS*/}
-                        <div className="flex flex-col gap-3">
-                            <button to='/checkout'
-                                    onClick={handleBuyNow}
-                                    className="p-5 border rounded-md bg-black text-white font-bold">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
+      unitPrice,
+      totalPrice,
+    });
+
+    navigate("/checkout");
+  };
+
+  const discountPercentage = (
+    (((product.oldPrice * 3000) -
+      product.price * 3000) /
+      (product.oldPrice * 3000)) *
+    100
+  ).toFixed(0);
+
+  return (
+    <section className="w-full bg-white px-5 md:px-12 py-12 mb-20">
+      <article className="max-w-[1400px] mx-auto">
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+
+          {/* PRODUCT IMAGES */}
+          <div className="md:col-span-2 space-y-4">
+
+            <div className="relative overflow-hidden rounded-xl bg-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+
+              {product.featured && (
+                <span className="absolute top-4 left-4 bg-white px-4 py-2 rounded-full text-sm font-medium shadow">
+                  Featured
+                </span>
+              )}
+            </div>
+
+            <div className="grid grid-cols-4 gap-3">
+              {[1, 2, 3, 4].map((item) => (
+                <img
+                  key={item}
+                  src={product.image}
+                  alt={product.name}
+                  className="aspect-square object-cover rounded-lg border"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* PRODUCT DETAILS */}
+          <div className="md:col-span-3">
+
+            {/* Brand */}
+            <p className="uppercase tracking-widest text-sm text-gray-500 mb-3">
+              {product.brand} • {product.category}
+            </p>
+
+            {/* Product Name */}
+            <h1 className="text-4xl font-semibold text-gray-900">
+              {product.name}
+            </h1>
+
+            {/* Ratings */}
+            <div className="flex items-center gap-4 mt-5">
+              <div className="flex items-center gap-1 text-orange-400">
+                <IoMdStar size={22} />
+                <IoMdStar size={22} />
+                <IoMdStar size={22} />
+                <IoMdStar size={22} />
+                <FiStar size={20} />
+              </div>
+
+              <span className="text-gray-500">
+                {product.rating} Reviews
+              </span>
+            </div>
+
+            {/* Price */}
+            <div className="flex flex-wrap items-center gap-5 mt-8">
+
+              <p className="text-3xl font-bold">
+                MWK {(product.price * 3000).toLocaleString()}
+              </p>
+
+              <p className="text-xl text-gray-400 line-through">
+                MWK {(product.oldPrice * 3000).toLocaleString()}
+              </p>
+
+              <span className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold">
+                {discountPercentage}% OFF
+              </span>
+            </div>
+
+            {/* Description */}
+            <p className="mt-8 text-gray-600 leading-relaxed text-lg">
+              {product.description}
+            </p>
+
+            {/* Color Selection */}
+            <div className="mt-10 border rounded-xl p-5">
+
+              <div className="flex items-center gap-3 mb-4">
+                <h3 className="font-semibold">
+                  Select Color
+                </h3>
+
+                {selectedColor && (
+                  <span className="text-gray-500">
+                    {selectedColor.name}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex gap-3">
+                {product.colors.map((color) => (
+                  <button
+                    key={color.id}
+                    type="button"
+                    onClick={() =>
+                      handleColorSelect(color)
+                    }
+                    className={`
+                      size-10
+                      rounded-full
+                      border-2
+                      transition-all
+                      duration-300
+                      ${color.bgColor}
+                      ${
+                        selectedColor?.id === color.id
+                          ? "border-black scale-110"
+                          : "border-transparent"
+                      }
+                    `}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Size Selection */}
+            {product.sizes && (
+              <div className="mt-6 border rounded-xl p-5">
+
+                <h3 className="font-semibold mb-4">
+                  Select Size
+                </h3>
+
+                <select
+                  name="size"
+                  value={item.size}
+                  onChange={handleInputChange}
+                  className="
+                    w-full
+                    border
+                    rounded-lg
+                    px-4
+                    py-3
+                    outline-none
+                    focus:border-black
+                  "
+                >
+                  <option value="">
+                    Select Size
+                  </option>
+
+                  {product.sizes.map((size) => (
+                    <option
+                      key={size}
+                      value={size}
+                    >
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Quantity */}
+            <div className="mt-6 border rounded-xl p-5">
+
+              <div className="flex items-center justify-between">
+
+                <div>
+                  <h3 className="font-semibold">
+                    Quantity
+                  </h3>
+
+                  <input
+                    type="number"
+                    min="1"
+                    max={product.stock}
+                    name="quantity"
+                    value={item.quantity}
+                    onChange={handleInputChange}
+                    className="
+                      mt-3
+                      w-24
+                      border
+                      rounded-lg
+                      px-4
+                      py-2
+                      outline-none
+                    "
+                  />
                 </div>
-                </article>
+
+                <div className="
+                  flex
+                  flex-col
+                  items-center
+                  gap-1
+                  bg-red-50
+                  border
+                  border-red-200
+                  px-5
+                  py-3
+                  rounded-xl
+                ">
+                  <IoMdWarning
+                    className="text-red-500"
+                    size={24}
+                  />
+
+                  <span className="text-sm">
+                    Only
+                  </span>
+
+                  <strong>
+                    {product.stock}
+                  </strong>
+
+                  <span className="text-sm">
+                    Remaining
+                  </span>
                 </div>
-         )
-}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="mt-8">
+
+              <button
+                onClick={handleBuyNow}
+                className="
+                  w-full
+                  bg-black
+                  text-white
+                  py-5
+                  rounded-xl
+                  font-semibold
+                  text-lg
+                  hover:bg-gray-900
+                  transition-all
+                  duration-300
+                "
+              >
+                Buy Now
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </section>
+  );
+};
+
 export default ProductDetails;

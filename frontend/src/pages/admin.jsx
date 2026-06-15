@@ -1,12 +1,50 @@
-import { useOrder } from "../utils/OrderContext";
 
+import { useState, useEffect } from "react";
+import { supabase } from "../utils/supabaseClient";
 import Profile from "../components/admin components/admin profile";
 import OrderCard from "../components/admin components/order card";
-import Ordered from "../components/admin components/ordered product";
+import OrderDetails from "../components/admin components/ordered details";
 import { Link, Outlet } from "react-router-dom";
 const Admin = () =>{
-      const { order, setOrder } = useOrder()
-      console.log(order)
+    // PRODUCT DETAILS
+    const [productDetails, setProductDetails] = useState(null);
+    const [closeDetails, setCloseDetails] = useState(false);
+    const handleViewDetails = (order) => {
+          setProductDetails(order);
+          setCloseDetails(true);
+    }
+    const handleCloseDetails = () => {
+          setProductDetails(null);
+          setCloseDetails(false);
+    }
+    // ORDERS 
+    const [fetchError, setFetchError] = useState(null);
+    const [orders, setOrders] = useState([]);
+    let orderData = null;
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+          const {data, error} = await supabase
+            .from('orders')
+            .select('*')
+
+            orderData = data;
+
+            if (error) {
+              setFetchError("Could not fetch orders");
+              console.log(error);
+              setOrders([]);
+            }
+
+            if (orderData) {
+              setOrders(orderData);
+              setFetchError(null);
+              // console.log("Fetched Orders:", orderData);
+            }
+          }
+          fetchOrders();
+       }, [])
+
     return(  
            
            <>
@@ -33,13 +71,34 @@ const Admin = () =>{
                 */}
                 {/* main/ orders*/}
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  py-10">
-                  <Outlet/>
-                  <OrderCard/>
-                  <OrderCard/>
-                  <OrderCard/>
-                  <OrderCard/>
-                  <OrderCard/>
-                  <OrderCard/>
+                  {/* Display error message if fetchError is not null */}
+                  {fetchError && <p className="text-red-500">{fetchError}</p>}
+                  
+                  {/* Display orders if available, otherwise show a message */}
+                  {orders.length > 0 ? (
+                    orders.map((order) => ( 
+                     <OrderCard
+                      key={order.id}
+                      order={order}
+                      viewDetails={handleViewDetails}
+                     />) 
+                      ))
+                      :
+                      (<p className="text-gray-500">searching...</p>)
+                  }
+
+                  {/* Product details modal */}
+                 
+                    {/* Modal content */}
+                    {productDetails 
+                       && 
+                       <OrderDetails 
+                         detail={productDetails} 
+                         closeDetails={closeDetails}
+                         handleCloseDetails={handleCloseDetails}
+                       />
+                    }
+                  
                 </div>
            
               <aside className="hidden w-full bg-green-100"></aside>
