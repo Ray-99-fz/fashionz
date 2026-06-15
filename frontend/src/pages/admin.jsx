@@ -47,44 +47,49 @@ const Admin = () =>{
 
     return(  
            
-           <>
+           <div className="w-full h-[80vh]">
            <Profile/>
-           <hr className="w-full text-black" />
-            <div className="w-fit mx-auto flex gap-4">
-                  
-            </div>
-            
+           
+           {/*CONTAINER */}
+           <div className="md:grid md:grid-cols-6 gap-4 px-5"> 
+                {/**  naviagation */}
 
-
-           <div className="px-5">
-               
-               <h1 className="text-4xl md:text-5xl text-center font-bold my-8">Current Orders</h1>
-              <div className=" gap-6">
-                {/**  naviagation
-
-                <aside className=" w-full py-20 bg-red-100">
-                  <nav className="flex flex-col gap-6">
-                    <Link to='new'>New Products</Link>
-                    <Link to='dispatched'> Dispatched Products</Link>
+                <aside className="hidden md:block w-full bg-black/45 text-white font-bold rounded-t-[0.2rem] px-2 py-5">
+                  <nav className="flex flex-col gap-4">
+                    <Link to='/admin'
+                          className="p-2 border-b rounded-sm bg-white/20">
+                       Current Orders
+                    </Link>
+                    <Link to='/admin'
+                          className="p-2 border-b rounded-sm bg-white/20"> 
+                       Dispatched Orders
+                    </Link>
+                    <Link to='/admin'
+                          className="p-2 border-b rounded-sm bg-white/20"> 
+                       Non Dispatched
+                    </Link>
                   </nav>
                 </aside>
-                */}
+               
+              <div className="col-start-2 col-span-5 gap-6 overflow-y-auto">
+               
                 {/* main/ orders*/}
+                <h1 className="text-3xl font-bold my-8">Current Orders</h1>
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  py-10">
                   {/* Display error message if fetchError is not null */}
                   {fetchError && <p className="text-red-500">{fetchError}</p>}
                   
                   {/* Display orders if available, otherwise show a message */}
-                  {orders.length > 0 ? (
-                    orders.map((order) => ( 
-                     <OrderCard
-                      key={order.id}
-                      order={order}
-                      viewDetails={handleViewDetails}
-                     />) 
-                      ))
-                      :
-                      (<p className="text-gray-500">searching...</p>)
+                  {orders.length > 0 
+                     && 
+                     (orders.map((order) => ( 
+                      <OrderCard
+                        key={order.id}
+                        order={order}
+                        viewDetails={handleViewDetails}
+                      />) 
+                        )
+                     )
                   }
 
                   {/* Product details modal */}
@@ -100,14 +105,12 @@ const Admin = () =>{
                     }
                   
                 </div>
-           
-              <aside className="hidden w-full bg-green-100"></aside>
            </div>
            </div>
           
            
 
-           </>
+           </div>
     )
 }
 export default Admin;

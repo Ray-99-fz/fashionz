@@ -15,10 +15,10 @@ const OrderDetails= ({detail, closeDetails, handleCloseDetails}) =>{
                 className={`
                     ${closeDetails ? 'block' : 'hidden'}
                     w-full 
-                    h-screen
-                    fixed 
-                    overflow-auto
-                    pt-30
+                    fixed
+                    h-full
+                    py-10
+                    px-5
                     md:pt-0
                     top-0 
                     left-0 
@@ -27,8 +27,8 @@ const OrderDetails= ({detail, closeDetails, handleCloseDetails}) =>{
                     justify-center 
                     items-center`}
               >
-            
-            <article className="relative z-100 w-9/10 md:w-7/10 ld:w-8/10 space-y-4 shadow-lg bg-white rounded-md px-5 py-10">
+            <div className="flex flex-col overflow-auto h-[85vh] md:h-fit">
+              <article className="relative z-100  md:w-7/10 ld:w-8/10 space-y-4 shadow-lg bg-white rounded-md px-5 py-10">
                   <button onClick={handleCloseDetails}
                         className="absolute 
                          top-4 right-4 
@@ -97,8 +97,9 @@ const OrderDetails= ({detail, closeDetails, handleCloseDetails}) =>{
                     </span>
                 </div>
               </article>
-               </div>
-           </>
+            </div>
+          </div>
+        </>
        )
 }
 export default OrderDetails;
