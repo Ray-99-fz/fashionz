@@ -74,7 +74,7 @@ const Admin = () =>{
               <div className="col-start-2 col-span-5 gap-6 overflow-y-auto">
                
                 {/* main/ orders*/}
-                <h1 className="text-3xl font-bold my-8">Current Orders</h1>
+                <h1 className="text-md md:text-3xl font-bold mt-12">Current Orders</h1>
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  py-10">
                   {/* Display error message if fetchError is not null */}
                   {fetchError && <p className="text-red-500">{fetchError}</p>}

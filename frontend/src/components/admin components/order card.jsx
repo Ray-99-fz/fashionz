@@ -10,9 +10,11 @@ const OrderCard = ({ order, viewDetails}) =>{
                      <article 
                       className="
                         relative 
-                        w-full flex 
+                        w-full 
+                        flex 
                         justify-between 
-                        gap-4 shadow-lg 
+                        gap-4 
+                        shadow-lg 
                         rounded-md 
                         px-2 py-4 
                         border 
