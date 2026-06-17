@@ -23,7 +23,7 @@ const router = createBrowserRouter(
             children: [
                 {index: true, Component: Landing},
                 {path: "/products/:slug", Component: Products},
-                {path: "/details/:id", Component: Details },
+                {path: "/details/:slug", Component: Details },
                 {path: '/checkout', Component: Checkout},   
             ]
 
